@@ -6,13 +6,11 @@ def initialise_test_database
 end
 
 def empty_test_database
-  conn = PG.connect(dbname: 'BrowserQuiz_test')
-  conn.exec('TRUNCATE questions;')
+  connect.exec('TRUNCATE questions;')
 end
 
 def populate_test_database
-  conn = PG.connect(dbname: 'BrowserQuiz_test')
-  conn.exec("
+  connect.exec("
     INSERT INTO questions(
       question, 
       answer_1, 
@@ -27,4 +25,8 @@ def populate_test_database
       3
     );
   ")
+end
+
+def connect
+  PG.connect(dbname: 'BrowserQuiz_test')
 end
