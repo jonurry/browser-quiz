@@ -7,7 +7,7 @@ def initialise_test_database
 end
 
 def empty_test_database(db_connection)
-  db_connection.exec('TRUNCATE questions cascade;')
+  db_connection.exec('TRUNCATE answers, questions;')
   db_connection.exec('alter sequence questions_id_seq restart with 1')
   db_connection.exec('alter sequence answers_id_seq restart with 1')
 end
