@@ -3,17 +3,17 @@ require 'pry'
 
 feature 'display a question and 3 possible answers' do
   scenario 'a user can see a question title' do
-    visit '/question'
+    visit '/question/1'
     expect(page).to have_content('Question')
   end
 
   scenario 'a user can see an answer section' do
-    visit '/question'
+    visit '/question/1'
     expect(page).to have_content('Please select your answer:')
   end
 
   scenario 'a user can see three possible answers' do
-    visit '/question'
+    visit '/question/1'
     for i in 1..3 do
       expect(page).to have_selector("#answer_#{i}")
     end
@@ -29,7 +29,7 @@ feature 'display a question and 3 possible answers' do
     visit 'question/1'
     answers = Quiz.questions[0].answers
     answers.each do |answer|
-      expect(page).to have_content(answer)
+      expect(page).to have_content(answer.answer)
     end
   end
 end

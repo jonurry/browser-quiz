@@ -9,7 +9,8 @@ class BrowserQuiz < Sinatra::Base
   end
 
   get '/question/:id' do
-    @question = questions.first
+    index = params[:id].to_i - 1
+    @question = questions[index]
     erb :question_answers
   end
 
