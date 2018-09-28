@@ -1,20 +1,14 @@
 <h1>Question</h1>
-<p>question 1</p>
+<p><%= @question.question %></p>
 <form action="answer" method="post">
   <fieldset>
     <legend>Please select your answer:</legend>
-    <div>
-      <input type="radio" id="answer_1" name="answer" value="1" checked />
-      <label for="answer_1">1. Answer text</label>
-    </div>
-    <div>
-      <input type="radio" id="answer_2" name="answer" value="2" />
-      <label for="answer_2">2. Answer text</label>
-    </div>
-    <div>
-      <input type="radio" id="answer_3" name="answer" value="3" />
-      <label for="answer_3">3. Answer text</label>
-    </div>
+    <% @question.answers.each do |answer| %>
+      <div>
+        <input type="radio" id="answer_<%= answer.id %>" name="answer" value="<%= answer.number %>" />
+        <label for="answer_<%= answer.id %>"><%= answer.answer %></label>
+      </div>
+    <% end %>
   </fieldset>
   <input type="submit" value="Submit"></input>
 </form>

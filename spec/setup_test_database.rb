@@ -1,28 +1,58 @@
 require 'pg'
 
 def initialise_test_database
-  empty_test_database
-  populate_test_database
+  db_connection = connect
+  empty_test_database(db_connection)
+  populate_test_database(db_connection)
 end
 
-def empty_test_database
-  connect.exec('TRUNCATE questions;')
+def empty_test_database(db_connection)
+  db_connection.exec('TRUNCATE questions cascade;')
+  db_connection.exec('alter sequence questions_id_seq restart with 1')
+  db_connection.exec('alter sequence answers_id_seq restart with 1')
 end
 
-def populate_test_database
-  connect.exec("
+def populate_test_database(db_connection)
+  db_connection.exec("
     INSERT INTO questions(
       question, 
-      answer_1, 
-      answer_2, 
-      answer_3, 
       correct_answer
     ) VALUES (
       'How many times has Eddy Merckx won le Tour de France?',
-      'Three',
-      'Four',
-      'Five',
       3
+    );
+  ")
+  db_connection.exec("
+    INSERT INTO answers(
+      question_id,
+      number,
+      answer
+    ) VALUES (
+      1,
+      1,
+      'Three'
+    );
+  ")
+  db_connection.exec("
+    INSERT INTO answers(
+      question_id,
+      number,
+      answer
+    ) VALUES (
+      1,
+      2,
+      'Four'
+    );
+  ")
+  db_connection.exec("
+    INSERT INTO answers(
+      question_id,
+      number,
+      answer
+    ) VALUES (
+      1,
+      3,
+      'Five'
     );
   ")
 end

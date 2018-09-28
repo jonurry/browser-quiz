@@ -1,11 +1,10 @@
 class Question
-  attr_reader :question, :answer_1, :answer_2, :answer_3, :correct_answer
+  attr_reader :id, :question, :correct_answer, :answers
 
-  def initialize(question, answer_1, answer_2, answer_3, correct_answer)
+  def initialize(id = nil, question = '', correct_answer = nil, answers = [])
+    @id = id
     @question = question
-    @answer_1 = answer_1
-    @answer_2 = answer_2
-    @answer_3 = answer_3
     @correct_answer = correct_answer
+    @answers = answers
   end
 end
